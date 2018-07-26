@@ -9,11 +9,20 @@
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
 </head>
 <body>
-        <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: true;'>
-            <a-marker preset="hello">
-                    <a-box id="box1" position='0 0.5 0' material='color: blue;'></a-box>
-            </a-marker>
-            <a-entity camera></a-entity>
+        <a-scene  arjs='trackingMethod: best;'>
+                <!-- <a-sphere position="0 0.5 0" radius="0.5" color="#EF2D5E"></a-sphere>
+                <a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#7BC8A4"></a-plane> -->
+                <a-anchor hit-testing-enabled='true'>
+                    <!-- Add your augmented reality here -->
+                    <a-box position='0 0.5 0' material='opacity: 0.5; side:double; color:red;'>
+                        <a-torus-knot radius='0.26' radius-tubular='0.05'>
+                            <a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+                        </a-torus-knot>
+                    </a-box>
+        
+                </a-anchor>
+                <a-marker-camera type='pattern' url='img/marker.png'></a-marker-camera>
+                <!-- <a-camera-static/> -->
         </a-scene>
     <!-- <div id="sceneContainer"></div>
 <script type="text/javascript" src="index_bundle.js"></script></body> -->
