@@ -9,6 +9,12 @@
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
 </head>
 <body>
-    <div id="sceneContainer"></div>
-<script type="text/javascript" src="index_bundle.js"></script></body>
+        <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: true;'>
+            <a-marker preset="hello">
+                    <a-box id="box1" position='0 0.5 0' material='color: blue;'></a-box>
+            </a-marker>
+            <a-entity camera></a-entity>
+        </a-scene>
+    <!-- <div id="sceneContainer"></div>
+<script type="text/javascript" src="index_bundle.js"></script></body> -->
 </html>
