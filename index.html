@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>XRHACKFEST2018</title>
-    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.min.js"> </script>
 </head>
 <body>
@@ -29,29 +30,34 @@
             init:function(e){
                 console.log(this,'init');
                 box = document.querySelector('#mainbox');
-                // console.log(box,'box');
-                // box.addEventListener(function(evt){
-                //     console.log(evt,'evt');
-                // });
-              
             }
         });
        
         function changeColor(){
-            // console.log('ok');
             var random = Math.floor((Math.random() * 4) + 1);
             box.setAttribute('material','color:'+colorArray[random]+';');
-            // console.log(box,'box');
         }
     </script>
-        <a-scene id="a-scene"   embedded arjs='sourceType: webcam; debugUIEnabled: false'>
-                 <a-marker markerhandler preset="hiro">
-                        <a-box id="mainbox" position='0 0.5 0' material='color: blue;'></a-box>
+        <a-scene id="a-scene" embedded arjs='sourceType: webcam;debugUIEnabled: false;'>
+                <a-assets>
+                    <a-asset-item id="scrollObj" src="model/scroll/scroll.obj"></a-asset-item>
+                    <a-asset-item id="scrollMtl" src="model/scroll/Scroll.mtl"></a-asset-item>
+                    <a-asset-item id="boy" src="model/boy/Boy_Highres.gltf"></a-asset-item>
+                    <a-asset-item id="girl" src="model/girl/Girl_Highres.gltf"></a-asset-item>
+                </a-assets>
+                
+                <!-- <a-entity scale="0.5 0.5 0.5" position='0 0 0' three-model="src: url(model/Boy_Highres.json); loader: json"></a-entity> -->
+                 <a-marker markerhandler preset="hiro" position="0 0 0">
+                        <a-entity gltf-model="#boy" position="-2 0 0" rotation="0 180 180" scale="0.01 0.01 0.01"></a-entity>
+                        <a-entity gltf-model="#girl" position="0 0 0" rotation="0 180 180" scale="0.01 0.01 0.01"></a-entity>
+                        <!-- <a-entity obj-model="obj: #boyObj;mtl: #boyMtl" scale="0.01 0.01 0.01" position="0 0 0" id="boy"></a-entity> -->
+                        <!-- <a-entity obj-model="obj: #scrollObj;mtl: #scrollMtl" position="0 0 0" id="treasureBox1"></a-entity> 
+                        <a-box id="mainbox" position='0 0.5 0' material='color: blue;'></a-box> -->
                   </a-marker>
                 <!-- <a-marker-camera type='pattern' patternUrl='../dist/img/pattern-marker.patt'></a-marker-camera> -->
                 <!-- <a-marker-camera id="camera" preset='hiro'></a-marker-camera> -->
                 <!-- <a-camera-static/> -->
-                <a-entity camera></a-entity>
+                <a-entity camera position="0 0 0"></a-entity>
         </a-scene>
         <div class="btnContent">
             <button id="change" onClick="changeColor()">Click me to change box color</button>
