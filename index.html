@@ -25,6 +25,25 @@
             z-index:1;
             bottom:0;
             left: 0;
+            text-align:right;
+            color:#fff;
+            padding:5px;
+        }
+        .linkContent a{
+            max-width:200px;
+            display: inline-block;
+            text-decoration:none;
+            color:#000;
+            padding: 10px;
+            background:#fff;
+            box-shadow:2px 2px 4px #000;
+            margin-right:10px;
+        }
+        .linkContent img{
+            width:100%;
+        }
+        .linkContent p{
+            margin:2px 0;
         }
         #testPos{
             width:100px;
@@ -45,6 +64,17 @@
             color:#fff;
             z-index:10;
         }
+        /* .a-canvas{
+            width: 100%;
+            top:0;
+            left:0;
+            max-width: 300px;
+            max-height: 300px;
+            margin: auto;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.2);
+        } */
     </style>
     <script type="text/javascript">
         var scene;
@@ -52,6 +82,39 @@
         var changeBtn = document.getElementById('change');
         var topmsg = document.querySelector('.topMessage');
         var position;
+        // var webcam = navigator.mediaDevices.getUserMedia(constraints)
+        //         .then(function(stream) {
+        //         /* use the stream */
+        //         console.log(stream,'stream');
+        //         })
+        //         .catch(function(err) {
+        //             console.log(err,'err');
+        //         /* handle the error */
+        //         });
+        var dataObj = {
+            'taipei':{'info':'台灣的首都位於台北，這個充滿現代感的城市融合了日本殖民時期遺留的街巷、繁忙的購物商街及當代風格的建築。市區最顯眼的景象非台北 101 大樓莫屬，這棟標高 509 公尺的竹子造型建築不僅開滿高檔精品商店，遊客更可搭乘快速直達電梯，登上近頂樓處的觀景台欣賞美景。',
+                      'img':'img/ar-markers/taipei/view.jpg',
+                      'link':'https://www.tripadvisor.com.tw/Tourism-g293913-Taipei-Vacations.html'},
+            'kaohsung':{'info':'高雄市是中華民國的直轄市，臺灣三大都市之一，位於臺灣西南部，為臺灣人口排名第三的城市。',
+                      'img':'https://skyticket.jp/guide/wp-content/uploads/the-urban-landscape-1698274_1280-680x450.jpg',
+                      'link':'https://mimihan.tw/2017-01-03-1309/'},
+            'huanlian':{'info':'花蓮縣，臺灣的縣，位於臺灣本島東部，北回歸線通過其南部。西臨高聳的中央山脈，東臨太平洋，周邊與宜蘭縣、台中市、南投縣、高雄市、台東縣相鄰，是臺灣面積最大的縣級行政區。 人口主要聚集於花東縱谷與海岸山脈最北點的沿海地帶，其以自然觀光資源著名，境內有太魯閣國家公園、玉山國家公園。',
+                      'img':'img/ar-markers/huanlian/view.jpeg',
+                      'link':'https://www.tripadvisor.com.tw/Attractions-g297907-Activities-Hualien.html'},
+            'ilan':{'info':'宜蘭市的主要河川有蘭陽溪及宜蘭河，其他的重要文化設施包括蘭陽戲劇館(已申請為環境教育設施場所認證)、宜蘭縣史館，宜蘭酒廠等。',
+                     'img':'img/ar-markers/ilan/view.jpg',
+                      'link':'https://l.facebook.com/l.php?u=http%3A%2F%2Feeis.ilepb.gov.tw%2Findex.php%2Fyilanee%2Feeintroduction&h=AT2QZMql4gmeXqJYaxFo6qNFTMw7B-wHZS_CQQEVbE1us5WdJgiB_4x90CtPfjUJi1ImP0IDobRZme6YrejY1mqC1JZloVLUbtcBiT4NNXyhwS0mX7bdPQkq2SqRTUOfMY3a2A'},
+            'taichung':{'info':'位在中部最重要的位置,可以說是台灣之心,台中常常都是晴朗的好天氣,陽光普照,氣候宜人還有好吃的太陽餅以及好喝的珍珠奶茶',
+                     'img':'https://l.facebook.com/l.php?u=https%3A%2F%2Fcdn.101mediaimage.com%2Fimg%2F2017%2F07%2F13%2F17076061116isz9.jpg&h=AT2QZMql4gmeXqJYaxFo6qNFTMw7B-wHZS_CQQEVbE1us5WdJgiB_4x90CtPfjUJi1ImP0IDobRZme6YrejY1mqC1JZloVLUbtcBiT4NNXyhwS0mX7bdPQkq2SqRTUOfMY3a2A',
+                      'link':'https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.invest-taichung.com.tw%2Fmeet-taichung%2F&h=AT2QZMql4gmeXqJYaxFo6qNFTMw7B-wHZS_CQQEVbE1us5WdJgiB_4x90CtPfjUJi1ImP0IDobRZme6YrejY1mqC1JZloVLUbtcBiT4NNXyhwS0mX7bdPQkq2SqRTUOfMY3a2A'},
+            'taitong':{'info':'台東縣位處台灣東南方，擁有台灣後花園的美譽，台東市是台東縣的地理中心，也是台東縣交通、經濟、觀光、文化，以及教育發展的樞紐。',
+                     'img':'img/ar-markers/taitong/view.jpg',
+                      'link':'https://l.facebook.com/l.php?u=http%3A%2F%2Fwww.taitungcity.gov.tw%2Fpage.php%3Fn%3D2&h=AT2QZMql4gmeXqJYaxFo6qNFTMw7B-wHZS_CQQEVbE1us5WdJgiB_4x90CtPfjUJi1ImP0IDobRZme6YrejY1mqC1JZloVLUbtcBiT4NNXyhwS0mX7bdPQkq2SqRTUOfMY3a2A'},
+            'tainan':{'info':'臺南市區的建城歷史可上推至1620年代，為臺灣最早建立的城市。爾後從荷治時期到清治末期將巡撫衙門遷至臺北為止，臺南一直都是臺灣的首府[5]，遂有「古都」之稱。',
+                     'img':'img/ar-markers/tainan/view.jpg',
+                      'link':'https://www.tripadvisor.com.tw/Tourism-g293912-Tainan-Vacations.html'},
+            
+        }
         
         AFRAME.registerComponent('main',{
             init:function(e){
@@ -134,31 +197,45 @@
             },
         });
         function changeModel(current){
+            
             if(current == 'kaohsung'){
                 document.querySelector('.topMessage').innerHTML = '高雄';
+                addlink(dataObj['kaohsung']);
             }else if(current == 'taipei'){
                 document.querySelector('.topMessage').innerHTML = '台北';
+                addlink(dataObj['taipei']);
             }else if(current == 'huanlian'){
                 document.querySelector('.topMessage').innerHTML = '花蓮';
+                addlink(dataObj['huanlian']);
             }
             else if(current == 'ilan'){
                 document.querySelector('.topMessage').innerHTML = '宜蘭';
+                addlink(dataObj['ilan']);
             }
             else if(current == 'taichung'){
                 document.querySelector('.topMessage').innerHTML = '台中';
+                addlink(dataObj['taichung']);
             }else if(current == 'tainan'){
                 document.querySelector('.topMessage').innerHTML = '台南';
+                addlink(dataObj['tainan']);
             }else if(current == 'taitong'){
                 document.querySelector('.topMessage').innerHTML = '台東';
+                addlink(dataObj['taitong']);
             }
             else if(current == 'main'){
                 document.querySelector('.topMessage').innerHTML = '可以開始掃描各地QRcode';
+                document.querySelector('.linkContent').innerHTML = '';
             }
             else{
                 document.querySelector('.topMessage').innerHTML = '歡迎使用webAr地圖!!';
+                document.querySelector('.linkContent').innerHTML = '';
             }
             // var random = Math.floor((Math.random() * 4) + 1);
             // box.setAttribute('material','color:'+colorArray[random]+';');
+        }
+        function addlink(place){
+            var linkData = '<a href="'+place.link+'" target="_blank" id="link"><img src="'+place.img+'" alt="view"/><span>旅遊資訊:</span><p>'+place.info+'</p></a>';
+            document.querySelector('.linkContent').innerHTML = linkData;
         }
     </script>
         <div class="topMessage">
@@ -171,13 +248,15 @@
                 <a-assets>
                         <a-asset-item id="fish" src="model/building/fish/fish.gltf">
                         <a-asset-item id="clbf" src="model/building/clbf/clbf.gltf">
-                        <a-asset-item id="flagObj" src="model/flag/USMC_flag.obj"></a-asset-item>
-                        <a-asset-item id="flagMtl" src="model/flag/USMC_flag.mtl"></a-asset-item>
                         <a-asset-item id="101" src="model/building/101/101.gltf"></a-asset-item>
+                        <a-asset-item id="ship" src="model/building/ship/3d-model.gltf"></a-asset-item>
+                        <a-asset-item id="food" src="model/building/food/3d-model.gltf"></a-asset-item>
+                        <!-- <a-asset-item id="tsgdOBJ" src="model/building/tsgd/3d-model.obj"></a-asset-item>
+                        <a-asset-item id="tsgdMtl" src="model/building/tsgd/3d-model.mtl"></a-asset-item> -->
                 </a-assets>
+                <a-entity obj-model="obj: #tsgdOBJ; mtl: #tsgdMtl" rotation="0 0 0" scale="1 1 1"  position="0 0.5 0"></a-entity>
                 <!-- <a-plane material="src:#markerImg; width:2; height:2;" position='0 0 -2'></a-plane>  -->
                 <!-- <a-box id="mainbox" position='0 0.5 -5' material='color: blue;'></a-box>  -->
-                <a-entity obj-model="obj:#flagObj; mtl:#flagMtl" scale="0.02 0.02 0.02"   position="0 0 0"></a-entity>
                  <a-marker main id="Marker1" preset="hiro" rotation="0 0 0">
                          <a-box id="mainbox" position='0 0.5 0' material='color:gold;'></a-box>  
                   </a-marker>
@@ -191,10 +270,11 @@
                     </a-gltf-model>
                 </a-marker>
                  <a-marker huanlian type="pattern" url="img/ar-markers/huanlian/pattern-marker-huanlian.patt">
-                    <a-box  position='0 0.5 0' material='color: blue;'>
+                    <!-- <a-box  position='0 0.5 0' material='color: blue;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
-                    </a-box>
+                    </a-box> -->
+                    <a-gltf-model src="#fish" position="-0.1 0.5 0" scale="0.01 0.01 0.01"></a-gltf-model>
                 </a-marker>
                 <a-marker ilan type="pattern" url="img/ar-markers/ilan/pattern-marker-ilan.patt">
                     <a-box  position='0 0.5 0' material='color: green;'>
@@ -204,38 +284,41 @@
                 </a-marker>
                 <a-marker kaohsung type="pattern" url="img/ar-markers/kaohsuang/pattern-marker-kaohsung.patt">
                     <a-gltf-model src="#clbf" position="0 0.5 0" rotation="0 180 0" scale="0.00001 0.00001 0.00001">
-                            <a-animation  attribute="rotation" to="0 180 360"
-                            easing="linear" dur="3000" repeat="indefinite"></a-animation>
+                            <!-- <a-animation  attribute="rotation" to="0 180 360"
+                            easing="linear" dur="3000" repeat="indefinite"></a-animation> -->
                     </a-gltf-model>  
-                    <!-- <a-box  position='0 0.5 0' material='color: white;'>
+                </a-marker>
+                <a-marker taichung type="pattern" url="img/ar-markers/taichung/pattern-marker-taichung.patt">
+                    <!-- <a-box  position='0 0.5 0' material='color: yellow;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
                     </a-box> -->
                 </a-marker>
-                <a-marker taichung type="pattern" url="img/ar-markers/taichung/pattern-marker-taichung.patt">
-                    <a-box  position='0 0.5 0' material='color: yellow;'>
-                        <a-animation  attribute="rotation" to="0 360 0"
-                        easing="linear" dur="1000" repeat="indefinite"></a-animation>
-                    </a-box>
-                </a-marker>
                 <a-marker tainan type="pattern" url="img/ar-markers/tainan/pattern-marker-tainan.patt">
-                    <a-box  position='0 0.5 0' material='color: black;'>
+                    <!-- <a-box  position='0 0.5 0' material='color: black;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
-                    </a-box>
+                    </a-box> -->
+                    <a-gltf-model src="#food" position="0 0 0" rotation="-90 0 0" scale="0.05 0.05 0.05"></a-gltf-model>
+                    <!-- <a-entity obj-model="obj: #tsgdOBJ; mtl: #tsgdMtl" rotation="0 0 0" scale="1 1 1"  position="0 0.5 0"></a-entity> -->
                 </a-marker>
                 <a-marker taitong type="pattern" url="img/ar-markers/taitong/pattern-marker-taitong.patt">
-                    <a-box  position='0 0.5 0' material='color: red;'>
+                    <!-- <a-box  position='0 0.5 0' material='color: red;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
-                    </a-box>
+                    </a-box> -->
+                    <a-gltf-model src="#ship" position="0 0.5 0" rotation="-90 0 0" scale="0.01 0.01 0.01"></a-gltf-model>
                 </a-marker>
                  <!-- <a-marker-camera id="camera" preset='hiro' position="0 0 23"> </a-marker-camera>  -->
-                <a-camera-static  position="0 0 13"/>
+                <a-camera-static  width="2" position="0 0 10"/>
                 <!-- <a-entity camera position="-2 13 0" rotation="-90 0 0"></a-entity> -->
         </a-scene>
         <div class="linkContent">
-           
+            <!-- <a href="https://www.tripadvisor.com.tw/Tourism-g293912-Tainan-Vacations.html" id="link" target="_blank">
+                <img src="img/ar-markers/tainan/view.jpg" alt="linkImg">
+                <span>旅遊資訊:</span>
+                <p>臺南市區的建城歷史可上推至1620年代，為臺灣最早建立的城市。爾後從荷治時期到清治末期將巡撫衙門遷至臺北為止，臺南一直都是臺灣的首府[5]，遂有「古都」之稱。</p>
+            </a> -->
         </div>
         <!-- <div class="btnContent">
             <button id="change" onClick="changeModel()">Click me to change model</button>
