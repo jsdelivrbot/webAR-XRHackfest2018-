@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>XRHACKFEST2018</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
@@ -14,12 +14,17 @@
         body{
             margin:0;
             padding:0;
+            background:url('img/ajax-loader.gif');
+            background-position:center;
+            background-repeat:no-repeat;
+            background-size:contain;
         }
         .linkContent{
             width:100%;
             position: fixed;
             z-index:1;
             bottom:0;
+            left: 0;
         }
         #testPos{
             width:100px;
@@ -32,6 +37,7 @@
         .topMessage{
             position: fixed;
             top:0;
+            left: 0;
             width:100%;
             padding:20px;
             background:rgba(0,0,0,0.5);
@@ -146,10 +152,10 @@
                 document.querySelector('.topMessage').innerHTML = '台東';
             }
             else if(current == 'main'){
-                document.querySelector('.topMessage').innerHTML = '歡迎使用webAr地圖!!';
+                document.querySelector('.topMessage').innerHTML = '可以開始掃描各地QRcode';
             }
             else{
-                document.querySelector('.topMessage').innerHTML = '';
+                document.querySelector('.topMessage').innerHTML = '歡迎使用webAr地圖!!';
             }
             // var random = Math.floor((Math.random() * 4) + 1);
             // box.setAttribute('material','color:'+colorArray[random]+';');
@@ -157,7 +163,7 @@
     </script>
         <div class="topMessage">
             <div class="info">
-
+                 歡迎使用webAr地圖!!
             </div>
         </div>
 
@@ -225,7 +231,7 @@
                     </a-box>
                 </a-marker>
                  <!-- <a-marker-camera id="camera" preset='hiro' position="0 0 23"> </a-marker-camera>  -->
-                <a-camera-static position="0 0 -2"/>
+                <a-camera-static  position="0 0 13"/>
                 <!-- <a-entity camera position="-2 13 0" rotation="-90 0 0"></a-entity> -->
         </a-scene>
         <div class="linkContent">
