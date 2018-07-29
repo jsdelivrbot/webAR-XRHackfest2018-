@@ -251,22 +251,22 @@
                         <a-asset-item id="101" src="model/building/101/101.gltf"></a-asset-item>
                         <a-asset-item id="ship" src="model/building/ship/3d-model.gltf"></a-asset-item>
                         <a-asset-item id="food" src="model/building/food/3d-model.gltf"></a-asset-item>
-                        <!-- <a-asset-item id="tsgdOBJ" src="model/building/tsgd/3d-model.obj"></a-asset-item>
-                        <a-asset-item id="tsgdMtl" src="model/building/tsgd/3d-model.mtl"></a-asset-item> -->
+                        <a-asset-item id="temple" src="model/building/temple/3d-model.gltf"></a-asset-item>
+                        <a-asset-item id="table" src="model/building/table/3d-model.gltf"></a-asset-item>
                 </a-assets>
-                <a-entity obj-model="obj: #tsgdOBJ; mtl: #tsgdMtl" rotation="0 0 0" scale="1 1 1"  position="0 0.5 0"></a-entity>
+                <!-- <a-entity obj-model="obj: #tsgdOBJ; mtl: #tsgdMtl" rotation="0 0 0" scale="1 1 1"  position="0 0.5 0"></a-entity> -->
                 <!-- <a-plane material="src:#markerImg; width:2; height:2;" position='0 0 -2'></a-plane>  -->
                 <!-- <a-box id="mainbox" position='0 0.5 -5' material='color: blue;'></a-box>  -->
                  <a-marker main id="Marker1" preset="hiro" rotation="0 0 0">
-                         <a-box id="mainbox" position='0 0.5 0' material='color:gold;'></a-box>  
+                         <!-- <a-box id="mainbox" position='0 0.5 0' material='color:gold;'></a-box>   -->
                   </a-marker>
                   <!-- <a-marker fish id="Marker2" preset="kanji" rotation="0 0 0">
                         <a-gltf-model src="#fish" position="0 0.5 0" scale="0.01 0.01 0.01"></a-gltf-model>
                  </a-marker> -->
                  <a-marker taipei type="pattern" url="img/ar-markers/taipei/pattern-marker-taipei.patt">
-                    <a-gltf-model src="#101" position="-0.5 0 0" rotation="0 180 0" scale="0.01 0.01 0.01">
-                            <a-animation  attribute="rotation" to="0 180 360"
-                            easing="linear" dur="3000" repeat="indefinite"></a-animation>
+                    <a-gltf-model src="#101" position="0 0 0" rotation="0 180 180" scale="0.05 0.05 0.05">
+                            <!-- <a-animation  attribute="rotation" to="0 180 360"
+                            easing="linear" dur="3000" repeat="indefinite"></a-animation> -->
                     </a-gltf-model>
                 </a-marker>
                  <a-marker huanlian type="pattern" url="img/ar-markers/huanlian/pattern-marker-huanlian.patt">
@@ -277,13 +277,14 @@
                     <a-gltf-model src="#fish" position="-0.1 0.5 0" scale="0.01 0.01 0.01"></a-gltf-model>
                 </a-marker>
                 <a-marker ilan type="pattern" url="img/ar-markers/ilan/pattern-marker-ilan.patt">
-                    <a-box  position='0 0.5 0' material='color: green;'>
+                    <!-- <a-box  position='0 0.5 0' material='color: green;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
-                    </a-box>
+                    </a-box> -->
+                    <a-gltf-model src="#temple" position="0 0 0" rotation="-90 0 0" scale="0.01 0.01 0.01"></a-gltf-model>
                 </a-marker>
                 <a-marker kaohsung type="pattern" url="img/ar-markers/kaohsuang/pattern-marker-kaohsung.patt">
-                    <a-gltf-model src="#clbf" position="0 0.5 0" rotation="0 180 0" scale="0.00001 0.00001 0.00001">
+                    <a-gltf-model src="#clbf" position="0 0.5 0" rotation="-90 10 0" scale="0.00005 0.00005 0.00005">
                             <!-- <a-animation  attribute="rotation" to="0 180 360"
                             easing="linear" dur="3000" repeat="indefinite"></a-animation> -->
                     </a-gltf-model>  
@@ -293,13 +294,14 @@
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
                     </a-box> -->
+                    <a-gltf-model src="#food" position="0 0 0" rotation="-90 0 0" scale="0.05 0.05 0.05"></a-gltf-model>
                 </a-marker>
                 <a-marker tainan type="pattern" url="img/ar-markers/tainan/pattern-marker-tainan.patt">
                     <!-- <a-box  position='0 0.5 0' material='color: black;'>
                         <a-animation  attribute="rotation" to="0 360 0"
                         easing="linear" dur="1000" repeat="indefinite"></a-animation>
                     </a-box> -->
-                    <a-gltf-model src="#food" position="0 0 0" rotation="-90 0 0" scale="0.05 0.05 0.05"></a-gltf-model>
+                    <a-gltf-model src="#table" position="0 0 0" rotation="-90 0 0" scale="0.005 0.005 0.005"></a-gltf-model>
                     <!-- <a-entity obj-model="obj: #tsgdOBJ; mtl: #tsgdMtl" rotation="0 0 0" scale="1 1 1"  position="0 0.5 0"></a-entity> -->
                 </a-marker>
                 <a-marker taitong type="pattern" url="img/ar-markers/taitong/pattern-marker-taitong.patt">
